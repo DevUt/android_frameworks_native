@@ -200,6 +200,8 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_MODULE := libsurfaceflinger_ddmconnection
 
 LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
-
+ifeq (,$(findstring TARGET_NEEDS_HWC_V0,$(LOCAL_CFLAGS)))
+LOCAL_CFLAGS += -Wno-unused -Wno-unused-parameter -Wno-sign-conversion
+endif
 include $(BUILD_SHARED_LIBRARY)
 endif # libnativehelper
