@@ -36,6 +36,11 @@ LOCAL_CPPFLAGS += -Wno-gnu-zero-variadic-macro-arguments
 # Don't warn about struct padding
 LOCAL_CPPFLAGS += -Wno-padded
 
+# MR0_CAMERA_BLOB
+ifeq (,$(findstring MR0_CAMERA_BLOB,$(LOCAL_CFLAGS)))
+LOCAL_CPPFLAGS += -Wno-return-type-c-linkage -Wno-unused-parameter -Wno-missing-prototypes
+endif
+
 LOCAL_SRC_FILES := \
 	IGraphicBufferConsumer.cpp \
 	IConsumerListener.cpp \
@@ -81,8 +86,15 @@ LOCAL_SHARED_LIBRARIES := \
 	libutils \
 	liblog
 
-
 LOCAL_MODULE := libgui
+
+ifeq ($(BOARD_EGL_SKIP_FIRST_DEQUEUE),true)
+    LOCAL_CFLAGS += -DSURFACE_SKIP_FIRST_DEQUEUE
+endif
+
+ifeq ($(BOARD_USE_MHEAP_SCREENSHOT),true)
+    LOCAL_CFLAGS += -DUSE_MHEAP_SCREENSHOT
+endif
 
 ifeq ($(TARGET_BOARD_PLATFORM), tegra)
 	LOCAL_CFLAGS += -DDONT_USE_FENCE_SYNC
