@@ -317,6 +317,9 @@ private:
     // Stores the current generation number. See setGenerationNumber and
     // IGraphicBufferProducer::setGenerationNumber for more information.
     uint32_t mGenerationNumber;
+#ifdef SURFACE_SKIP_FIRST_DEQUEUE
+    bool                        mDequeuedOnce;
+#endif
 };
 
 }; // namespace android
