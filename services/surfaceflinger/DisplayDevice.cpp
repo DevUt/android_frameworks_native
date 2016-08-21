@@ -29,6 +29,10 @@
 
 #include <gui/Surface.h>
 
+#ifdef EGL_NEEDS_FNW
+#include <ui/FramebufferNativeWindow.h>
+#endif
+
 #include <hardware/gralloc.h>
 
 #include "DisplayHardware/DisplaySurface.h"
